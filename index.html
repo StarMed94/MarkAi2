@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mark.AI - AI-Powered E-commerce Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #F9FAFB;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+        }
+        
+        .ai-badge {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-badge::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(255,255,255,0));
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-box {
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus-within {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .rtl-support {
+            direction: rtl;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center text-white font-bold text-xl">
+                        m
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">mark.<span class="text-primary">AI</span></span>
+                </div>
+                
+                <div class="flex-1 max-w-2xl mx-4">
+                    <div class="search-box bg-gray-100 rounded-full flex items-center px-4 py-2">
+                        <i class="fas fa-search text-gray-500"></i>
+                        <input type="text" placeholder="Search for products, brands, or categories..." class="bg-transparent border-none outline-none w-full px-3 py-1">
+                        <button class="ai-badge bg-primary text-white text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                            <i class="fas fa-robot mr-1"></i> AI
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="relative text-gray-600 hover:text-primary">
+                        <i class="fas fa-heart text-lg"></i>
+                    </button>
+                    <button class="relative text-gray-600 hover:text-primary">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">3</span>
+                    </button>
+                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-4 py-2 rounded-full text-sm">
+                        <i class="fas fa-user mr-2"></i> Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="gradient-bg rounded-2xl text-white p-8 mb-12">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">The Future of E-commerce, Powered by AI</h1>
+                <p class="text-xl mb-8 opacity-90">Discover products curated by artificial intelligence. Smarter shopping, safer transactions, seamless experience.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="bg-white text-primary font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition">
+                        Start Shopping
+                    </button>
+                    <button class="bg-transparent border-2 border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-primary transition">
+                        Become a Seller
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Features Section -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-4">AI-Powered Features</h2>
+            <p class="text-gray-600 text-center max-w-2xl mx-auto mb-8">Our advanced AI systems ensure a safe, personalized, and efficient shopping experience</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Content Moderation</h3>
+                    <p class="text-gray-600 text-sm">AI automatically screens products for inappropriate content and policy violations</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-copyright"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">IP Protection</h3>
+                    <p class="text-gray-600 text-sm">Perceptual hashing detects and prevents sale of counterfeit products</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Smart Recommendations</h3>
+                    <p class="text-gray-600 text-sm">Personalized product suggestions based on your preferences and behavior</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Semantic Search</h3>
+                    <p class="text-gray-600 text-sm">Find products using natural language, not just keywords</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Recommended For You</h2>
+                <button class="text-primary font-medium flex items-center">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Smart Watch" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2">
+                            <span class="ai-badge bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded flex items-center">
+                                <i class="fas fa-check-circle mr-1"></i> AI Verified
+                            </span>
+                        </div>
+                        <button class="absolute top-2 left-2 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md text-gray-500 hover:text-primary">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">SmartWatch Pro Series 5</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">4.5 (128)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$249.99</span>
+                            <button class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-blue-600">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Headphones" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2">
+                            <span class="ai-badge bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded flex items-center">
+                                <i class="fas fa-check-circle mr-1"></i> AI Verified
+                            </span>
+                        </div>
+                        <button class="absolute top-2 left-2 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md text-gray-500 hover:text-primary">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Wireless Noise-Cancelling Headphones</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">4.9 (256)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$179.99</span>
+                            <button class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-blue-600">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Camera" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-medium px-2 py-1 rounded flex items-center">
+                                <i class="fas fa-clock mr-1"></i> Under Review
+                            </span>
+                        </div>
+                        <button class="absolute top-2 left-2 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md text-gray-500 hover:text-primary">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Digital DSLR Camera 4K Video</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">4.0 (87)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$599.99</span>
+                            <button class="bg-gray-200 text-gray-500 rounded-full w-8 h-8 flex items-center justify-center cursor-not-allowed">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Vitamins" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2">
+                            <span class="ai-badge bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded flex items-center">
+                                <i class="fas fa-check-circle mr-1"></i> AI Verified
+                            </span>
+                        </div>
+                        <button class="absolute top-2 left-2 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md text-gray-500 hover:text-primary">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Organic Vitamin D3 Supplements</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">4.5 (432)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$29.99</span>
+                            <button class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-blue-600">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section class="bg-white rounded-2xl shadow-sm p-8 mb-12">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-6">Secure & Trusted Marketplace</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-2xl mx-auto mb-4">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">PCI-DSS Compliant</h3>
+                        <p class="text-gray-600">We never store your payment data. All transactions are processed by Stripe with tokenization.</p>
+                    </div>
+                    
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-2xl mx-auto mb-4">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Multi-Factor Authentication</h3>
+                        <p class="text-gray-600">Secure your account with MFA using TOTP for an additional layer of protection.</p>
+                    </div>
+                    
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 text-2xl mx-auto mb-4">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">AI Fraud Detection</h3>
+                        <p class="text-gray-600">Our AI systems monitor transactions in real-time to detect and prevent fraudulent activities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white font-bold">
+                            m
+                        </div>
+                        <span class="text-xl font-bold">mark.<span class="text-primary">AI</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-4">The AI-powered marketplace for the future of e-commerce.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Featured Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Best Sellers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">On Sale</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">IP Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2023 mark.AI. All rights reserved.</p>
+                <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    <span class="text-gray-400">Accepted Payment Methods:</span>
+                    <div class="flex space-x-2">
+                        <i class="fab fa-cc-visa text-gray-400"></i>
+                        <i class="fab fa-cc-mastercard text-gray-400"></i>
+                        <i class="fab fa-cc-amex text-gray-400"></i>
+                        <i class="fab fa-cc-paypal text-gray-400"></i>
+                        <i class="fab fa-apple-pay text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Demo functionality for the AI features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate AI recommendation loading
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('button')) {
+                        // In a real app, this would navigate to the product page
+                        console.log('Navigating to product detail page');
+                    }
+                });
+            });
+            
+            // Simulate AI search
+            const searchBox = document.querySelector('.search-box input');
+            searchBox.addEventListener('focus', function() {
+                document.querySelector('.search-box').classList.add('shadow-md');
+            });
+            
+            searchBox.addEventListener('blur', function() {
+                document.querySelector('.search-box').classList.remove('shadow-md');
+            });
+            
+            // Language switcher simulation
+            const langSwitch = document.createElement('div');
+            langSwitch.className = 'fixed bottom-4 right-4 bg-white rounded-full shadow-lg p-2';
+            langSwitch.innerHTML = `
+                <button id="language-toggle" class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white">
+                    <i class="fas fa-globe"></i>
+                </button>
+            `;
+            document.body.appendChild(langSwitch);
+            
+            document.getElementById('language-toggle').addEventListener('click', function() {
+                alert('Language switcher would toggle between English and Arabic (RTL)');
+            });
+        });
+    </script>
+</body>
+</html>
